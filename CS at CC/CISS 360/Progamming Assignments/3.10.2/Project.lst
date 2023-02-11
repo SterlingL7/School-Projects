@@ -1,0 +1,86 @@
+Microsoft (R) Macro Assembler Version 14.12.25834.0	    03/25/18 19:15:55
+Sterling LaBarbera 3.10 2.asm				     Page 1 - 1
+
+
+				;assignment 3.10 part 2 Sterling LaBarbera
+				;this program assigns an int value to each day of the week: 1 = Sunday ... 7 = Saturday
+				;
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ = 00000001			Sunday EQU 1
+ = 00000002			Monday EQU 2
+ = 00000003			Tuesday EQU 3
+ = 00000004			Wednesday EQU 4
+ = 00000005			Thursday EQU 5
+ = 00000006			Friday EQU 6
+ = 00000007			Saturday EQU 7
+					
+ 00000000			.data
+ 00000000 01 02 03 04 05		daysofweek BYTE Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+	   06 07
+ 00000007 = 00000007			ListSize = ($ - daysofweek)
+
+ 00000000			.code
+ 00000000			main proc
+					add eax, daysofweek
+Sterling LaBarbera 3.10 2.asm(24) : error A2022:instruction operands must be the same size
+
+
+					invoke ExitProcess,0
+ 00000000  6A 00	   *	    push   +000000000h
+ 00000002  E8 00000000 E   *	    call   ExitProcess
+ 00000007			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.12.25834.0	    03/25/18 19:15:55
+Sterling LaBarbera 3.10 2.asm				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000007 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000016 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000016 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+Friday . . . . . . . . . . . . .	Number	 00000006h   
+ListSize . . . . . . . . . . . .	Number	 00000007h   
+Monday . . . . . . . . . . . . .	Number	 00000002h   
+Saturday . . . . . . . . . . . .	Number	 00000007h   
+Sunday . . . . . . . . . . . . .	Number	 00000001h   
+Thursday . . . . . . . . . . . .	Number	 00000005h   
+Tuesday  . . . . . . . . . . . .	Number	 00000003h   
+Wednesday  . . . . . . . . . . .	Number	 00000004h   
+daysofweek . . . . . . . . . . .	Byte	 00000000 _DATA	
+
+	   0 Warnings
+	   1 Errors

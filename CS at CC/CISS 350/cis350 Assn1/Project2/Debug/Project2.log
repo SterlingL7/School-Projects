@@ -1,0 +1,3 @@
+﻿  Source.cpp
+c:\users\syzygy\desktop\school\cs at cc\ciss 350\cis350 assn1\project2\source.cpp(35): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Project2.vcxproj -> C:\Users\Syzygy\Desktop\School\CS at CC\CISS 350\cis350 Assn1\Debug\Project2.exe

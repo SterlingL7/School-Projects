@@ -1,0 +1,299 @@
+wk5xr5
+
+# Gnu Make Implicit Variables
+# https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html (Links to an external site.)
+#
+CPPFLAGS, CFLAGS, CXXFLAGS, LDFLAGS, LDLIBS   # GNU Make implicit variables
+
+# GNU Make automatic variables (see Example 6 below)
+# https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html (Links to an external site.)
+#
+$<, $^, $@
+
+# GNU Make default rules database variables (see Make's -p option and Example 6 below)
+# $ make -p -f /dev/null | grep "LINK.o \|LINK.cc \|LINK.c"
+# $ make -p -f /dev/null | less
+#
+LINK.o, LINK.cc
+
+
+
+# SUGGESTED MAKEFILE
+# ECE 3220 FINAL EXAM
+# 2020 FALL
+# 2020-12-06 Jim Fischer <fischerjd@missouri.edu>
+# Copyright 2020 James D. Fischer.  All rights reserved.
+
+PROGRAM := demo 
+
+SOURCES := $(wildcard *.cc)
+HEADERS := $(wildcard *.h)
+OBJS := $(SOURCES:.cc=.o)
+
+# C/C++ COMPILER OPTIONS
+# Command line options that must be passed to C/C++ compilers, respectively.
+#
+# Note: The wiringPi documentation states that the flag `-pthread' should
+# be specified when compiling your C/C++ source code.
+#
+CFLAGS := -std=c11 -O3 -pthread
+CXXFLAGS := -std=c++11 -O3 -pthread
+
+# LINKER OPTIONS
+# The linker must be told that it should link your program with the code in
+# the wiringPi shared object (.so) library file.  The path to this library
+# file is
+#
+#   /usr/lib/libwiringPi.so
+#               ^^^^^^^^----------- ( LDLIBS += -lwiringPi )
+#                                                ^-- lowercase ell, not one
+# :: NOTE ::
+# The documentation for the wirintPi library states that the command line
+# option `-pthread' should be specified when linking your object code with
+# the code in the wiringPi library.
+# 
+LDFLAGS += -pthread
+LDLIBS += -lwiringPi
+
+# Use the C++ compiler, not the C compiler, to invoke the linker
+LINK.o = $(LINK.cc)
+
+# Build rule
+$(PROGRAM) : $(OBJS)
+	$(LINK.o) $^ $(LDLIBS) -o $@
+
+# Inform make that the project's object code files %.o must
+# be rebuilt if any header file is edited/updated.
+$(OBJS) : $(HEADERS)
+
+.PHONY: clean
+clean:
+	rm -f $(PROGRAM) $(OBJS)
+	
+	
+	
+	
+	/* C/C++ */
+T *p1 = 0;      // integer value zero
+T *p2 = NULL;   // C preprocessor macro NULL (implementation-defined value)
+
+/* C++ */
+T *p3 = nullptr;
+
+/* Example from [1] that demonstrates the need for nullptr in C++ programs */
+#include <iostream>
+
+// Overloaded function `func()'
+void func(int n) { std::cout << "func(int)" << std::endl; }
+void func(char *s) { std::cout << "func(char *)" << std::endl; }
+
+int main()
+{
+    func(0);        // exact match is func(int), invokes func(int)
+    func(nullptr);  // best match is func(char *), invokes func(char *)
+    func(NULL);     // error: ambiguous - func(int) or func(char *) ???
+        // The version of func() that is matched depends upon how the C++ compiler
+        // defines the preprocessor macro `NULL', e.g.,
+        //   #define NULL 0  -> exact match is func(int), but probably not what we intended
+        //   #define NULL (void *)0  -> best match is func(char *)
+
+    // NULL's value is implementation defined. Under the C++11 standard
+    // NULL's value CANNOT BE `(void *)0' as is often used with C compilers.
+    // For GNU g++, NULL is #define'd to be __null, a magic keyword extension of g++ [2].
+
+    // Also note that a void pointer `void *' is only valid for use with data
+    // pointers; it is not valid for function pointers.
+    void (*fp1)(int) = 0;         // OK
+    void (*fp2)(int) = (void *)0; // error
+    void (*fp3)(int) = NULL;      // error if C-style NULL macro `#define NULL (void *)0'
+    void (*fp4)(int) = nullptr;   // OK (all null pointer types are supported)
+    void (*fp5)(int) = &func;     // OK, exact match is `void func(int)'
+
+    return 0;
+}
+
+	
+	
+	
+	
+	T t;
+const T ct;
+
+T *p1;        // p1 is a non-const pointer to a non-const T object
+p1 = &t;      // OK
+p1 = nullptr; // OK
+p1 = &ct;     // Error: p1 cannot point to a constant-valued object
+
+const T *p2 = nullptr;    // p2 is a non-const pointer to a T object that is constant-valued (same as p3)
+T const *p3 = &ct;        // p3 is a non-const pointer to a constant-valued T object (same as p2)
+p2 = &ct;                 // OK
+p2 = nullptr;             // OK
+p2 = &t;                  // Error: object t is not constant-valued
+
+T * const p4 = &t;        // p4 is a constant pointer to a non-const T object
+                          // p4 is constant, therefore p4 must be initialized
+
+T * const p5;             // Error: p5 is const, therefore p5 must be initialized 
+
+const T * const p6 = &ct; // p6 is a constant pointer to a T object that is constant-valued (same as p7)
+T const * const p7 = &ct; // p7 is a constant pointer to a constant-valued T object (same as p6)
+	
+	
+	
+	
+	#include <iostream>
+
+using std::cout;
+using std::endl;
+
+// Two ordinary C-style functions that have the same signature 
+// 'FUNCTION(int)' and return type 'void'.
+// See also:  
+void foo(int a) { cout << "foo(" << a << ')' << endl; }
+void bar(int b) { cout << "bar(" << b << ')' << endl; }
+
+int main()
+{
+    // 'fp' is a pointer to a function () that takes an 'int' argument and
+    // returns 'void'.
+    void (*fp)(int);
+
+    // Store in fp the address of function foo.
+    fp = &foo;
+
+    // Use function pointer 'fp' to invoke function foo.
+    (*fp)(5);
+
+    // Store in fp the address of function bar.
+    fp = &bar;
+
+    // Use function pointer 'fp' to invoke function bar.
+    (*fp)(-22);
+
+    return 0;
+}
+
+
+
+class X {
+public:
+    // Default constructor AND converting constructor
+    X( int v = 0 ) : value(v) { }
+
+    /* NOTE! When defining a class method that overloads a
+     * typecast operation--e.g., conversion of an X object 
+     * to `bool', the class method does not specify a return
+     * type to the left of the 'operator' token.
+     */
+    operator bool () const;
+
+protected:
+    int value;
+}
+
+// Note that this method does not specify a return type 
+// to the left of the `X::operator' token. The method's
+// return type is `bool'.
+//
+X::operator bool () const
+{
+    return value != 0 ;
+}
+
+int main()
+{
+    X  x0(0), x1(5);
+
+    // The following statement uses C++'s ternary conditional operator (Links to an external site.) 'E1 ? E2 : E3'
+    // where expression 'E1' must evaluate to a boolean value (either true or false).
+    std::cout
+        << "x0 is " << (x0 ? "true" : "false") << '\n'
+        << "x1 is " << (x1 ? "true" : "false") << '\n'
+        << std::endl;
+
+    return 0;
+}
+
+
+
+class X { 
+...
+friend std::ostream& operator << ( std::ostream &os, const X &rhs );
+};
+
+std::ostream &
+operator << ( std::ostream &os, const X &rhs )
+{
+    os << /*...*/ ;
+    return os;
+}
+
+void foo()
+{
+    X xobj;
+    /*...*/
+    cout << xobj;    // operator<<(cout,xobj)
+}
+
+
+
+
+/ * Base class 'B' */
+class B {
+public:    int x;
+protected: int y;
+private:   int z;
+};
+`
+/* Class 'D' is derived from class 'B' */
+class D : ??? B { }; // where ??? is public, or protected, or private
+
+class D1 : public B { };
+// D1::B::x remains public and is accessible within D1
+// D1::B::y remains protected and is accessible within D1
+// D1::B::z is present in D1, but D1's methods cannot access D1::B::z
+
+class D2 : protected B { };
+// D2::B::x access changes to protected within D2 and is accessible within D2
+// D2::B::y remains protected within D2 and is accessible within D2
+// D2::B::z is present in D2, but D2's methods cannot access D2::B::z
+
+class D3 : private B { };
+// D3::B::x access changes to private within D3 and is accessible within D3
+// D3::B::y access changes to private within D3 and is accessible within D3
+// D3::B::z is present in D3, but D3's methods cannot access D3::B::z
+
+
+class X1 : public D1 { };
+// X1::D1::B::x remains public and is accessible within X1
+// X1::D1::B::y remains protected and is accessible within X1
+// X1::D1::B::z is present in X1, but X1's methods cannot access X1::D1::B::z
+
+class X2 : public D2 { };
+// X1::D1::B::x remains protected and is accessible within X1
+// X1::D1::B::y remains protected and is accessible within X1
+// X1::D1::B::z is present in X1, but X1's methods cannot access X1::D1::B::z
+
+class X3 : public D3 { };
+// X1::D1::B::x is present in X1, but X1's methods cannot access X1::D1::B::x
+// X1::D1::B::y is present in X1, but X1's methods cannot access X1::D1::B::y
+// X1::D1::B::z is present in X1, but X1's methods cannot access X1::D1::B::z
+
+
+
+std::mutex  mutex_cout ;
+  4 
+  5 void thread1()
+  6 {
+  7     { // nested code block
+  8         // critical section (begin)
+  9         std::lock_guard<std::mutex>  lg { mutex_cout };
+ 10         std::cout << "Hello" << std::endl;
+ 11         // critical section (end)
+ 12     } // <- lg's lifetime ends here; therefore, lg is destructed here
+
+
+
+
+
+

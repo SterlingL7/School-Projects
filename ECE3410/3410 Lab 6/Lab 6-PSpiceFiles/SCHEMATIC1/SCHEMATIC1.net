@@ -1,0 +1,9 @@
+* source LAB 6
+R_R1         N00230 N00306  1k TC=0,0 
+R_R2         N00306 N00348  100k TC=0,0 
+C_C1         N00306 N00348  100p  TC=0,0 
+V_V2         N00224 0 15Vdc
+V_V3         0 N00253 15Vdc
+X_U1         0 N00306 N00224 N00253 N00348 LM741
+V_V4         N00230 0  
++PULSE 100m -100m 0 5us 5us 0 10us

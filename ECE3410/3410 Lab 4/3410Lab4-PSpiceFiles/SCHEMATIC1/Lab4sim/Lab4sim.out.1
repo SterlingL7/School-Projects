@@ -1,0 +1,60 @@
+
+**** 03/31/20 12:34:06 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab4sim"  [ c:\users\syzygy\desktop\school\3410 labs\3410lab4-PSpiceFiles\SCHEMATIC1\Lab4sim.sim ] 
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "Lab4sim.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\SPB_DATA\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 100000ns 0 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source 3410LAB4
+R_R2         N00264 N00268 150k
+R_R3         N00268 0 5.6k
+R_R4         N00264 N01993 680
+R_R5         N01429 0 470
+R_R6         N00250 0 1.2k
+V_V3         N00264 0 15Vdc
+J_J1         N01993 N00268 N01429 J2N3819 
+R_R1         N024250 N02453 51
+C_C4         N024250 N02459  22n  TC=0,0 
+V_V2         N02453 N02495  AC 0
++SIN 0 60m 100k 0 0 0
+
+**** RESUMING Lab4sim.cir ****
+.END
+
+ERROR(ORPSIM-15141): Less than 2 connections at node N00250.
+
+ERROR(ORPSIM-15141): Less than 2 connections at node N02459.
+
+ERROR(ORPSIM-15142): Node N024250 is floating
+
+ERROR(ORPSIM-15142): Node N02453 is floating
+
+ERROR(ORPSIM-15142): Node N02459 is floating
+
+ERROR(ORPSIM-15142): Node N02495 is floating
+

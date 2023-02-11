@@ -1,0 +1,6 @@
+Receipt: 12-349-2018 22:25:59
+Title				Price
+-----------------		-----
+Sub Total:			139.05
+Tax:				9.73
+Grand Total:			148.78

@@ -1,0 +1,4 @@
+﻿  Assembling Sterling L 8.11.2.asm...
+c:\Irvine\SmallWin.inc(11): warning A4011: multiple .MODEL directives found : .MODEL ignored
+Sterling L 8.11.2.asm(42): warning A6004: procedure argument or local not referenced : color2
+  Project.vcxproj -> C:\Users\Syzygy\Desktop\New folder\cis360\Progamming Assignments\8.11.2\Debug\Project.exe

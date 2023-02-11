@@ -1,0 +1,64 @@
+%read in image files
+img1 = imread('C:\Users\PhotonUser\Desktop\Stanford_Bunny.jpg');
+
+img1 = rgb2gray(img1);
+
+%variables for kernel values. For maximum: kSize = 6*sigma per the book 
+kSize = 21;
+
+%0 pad image for edge filtering
+img1 = padarray(img1, [kSize kSize]);
+
+%get size input images
+MN = size(img1);
+imSize = MN(1) * MN(2);
+
+%output matrix
+outimg1 = zeros(MN(1),MN(2));
+
+mn = size(outimg1);
+
+%loop iteration applies gaussian filter to image, resizes
+%and rebuilds a smaller gaussian filter for the reduced image
+while kSize >= 3
+	sigma = kSize/6;
+	%create gaussian kernel
+	[u v] = meshgrid(-(kSize - 1)/2: (kSize - 1)/2, -(kSize - 1)/2: (kSize - 1)/2);
+	u = double(u);
+	v = double(v);
+	gkernel = exp(-(u.^2 + v.^2)/(2*sigma^2));
+	gkernel = gkernel / sum(gkernel(:));
+
+	fkernel = zeros(kSize,kSize);
+	i = 1;
+	j = 1;
+	%Loop to convolve kernel and input image
+	while i <= (MN(1) - kSize)
+		kernel = (img1(i: i+kSize-1, j: j+kSize-1));
+		kernel = double(kernel);
+		fkernel = gkernel.*kernel;
+		
+		outimg1(i + round((kSize - 1)/2), j + round((kSize - 1)/2)) = sum(fkernel(:));
+		i = i + 1;
+		
+		if i > (MN(1) - kSize)
+			i = 1;
+			if j < (MN(2) - kSize)
+				j = j + 1;
+			else
+				break;
+			end
+		end
+	end
+	
+	kSize = kSize/2;
+	kSize = round(kSize);
+	
+	imshow(uint8(img1))
+	z = waitforbuttonpress;
+	img1 = outimg1(1:2:end, 1:2:end);
+	imshow(uint8(img1))
+	MN = size(img1);
+	z = waitforbuttonpress;
+end
+

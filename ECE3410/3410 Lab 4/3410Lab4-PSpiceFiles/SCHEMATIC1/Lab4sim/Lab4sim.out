@@ -1,0 +1,131 @@
+
+**** 04/10/20 20:31:07 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab4sim"  [ c:\users\syzygy\desktop\school\3410 labs\3410lab4-pspicefiles\schematic1\lab4sim.sim ] 
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "Lab4sim.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\SPB_DATA\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 100000ns 0 100ns 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source 3410LAB4
+R_R2         N00264 N00268 150k
+R_R3         N00268 0 5.6k
+R_R4         N00264 N01993 680
+R_R5         N01429 0 470
+R_R6         N00250 0 1.2k
+V_V3         N00264 0 15Vdc
+J_J1         N01993 N00268 N01429 J2N3819 
+C_C5         N01993 N00250  47n  TC=0,0 
+C_C6         0 N01429  47n  TC=0,0 
+R_R1         N024250 N02453 51
+C_C4         N024250 N00268  22n  TC=0,0 
+V_V2         N02453 0  AC 0
++SIN 160m 60m 100k 0 0 0
+
+**** RESUMING Lab4sim.cir ****
+.END
+
+**** 04/10/20 20:31:07 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab4sim"  [ c:\users\syzygy\desktop\school\3410 labs\3410lab4-pspicefiles\schematic1\lab4sim.sim ] 
+
+
+ ****     Junction FET MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               J2N3819         
+               NJF             
+         VTO   -3            
+        BETA    1.304000E-03 
+      LAMBDA    2.250000E-03 
+          IS   33.570000E-15 
+         ISR  322.400000E-15 
+       ALPHA  311.700000E-06 
+          VK  243.6          
+          RD    1            
+          RS    1            
+         CGD    1.600000E-12 
+         CGS    2.414000E-12 
+           M     .3622       
+       VTOTC   -2.500000E-03 
+     BETATCE    -.5          
+          KF    9.882000E-18 
+
+
+**** 04/10/20 20:31:07 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab4sim"  [ c:\users\syzygy\desktop\school\3410 labs\3410lab4-pspicefiles\schematic1\lab4sim.sim ] 
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(N00250)    0.0000 (N00264)   15.0000 (N00268)     .5398 (N01429)    1.8287     
+
+(N01993)   12.3540 (N02453)     .1600 (N024250)     .1600                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V3        -3.987E-03
+    V_V2         0.000E+00
+
+    TOTAL POWER DISSIPATION   5.98E-02  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 04/10/20 20:31:07 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab4sim"  [ c:\users\syzygy\desktop\school\3410 labs\3410lab4-pspicefiles\schematic1\lab4sim.sim ] 
+
+
+ ****     JOB STATISTICS SUMMARY
+
+
+******************************************************************************
+
+
+
+  License check-out time            =         .81
+  Total job time (using Solver 1)   =         .03
+

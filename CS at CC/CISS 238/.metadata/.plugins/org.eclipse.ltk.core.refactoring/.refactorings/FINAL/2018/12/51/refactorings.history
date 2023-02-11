@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;clearCartButton&apos; in &apos;shoppingCart.ShoppingCart.start(...)&apos; to &apos;emptyCartButton&apos;&#x0D;&#x0A;- Original project: &apos;FINAL&apos;&#x0D;&#x0A;- Original element: &apos;shoppingCart.ShoppingCart.start(Stage).clearCartButton&apos;&#x0D;&#x0A;- Renamed element: &apos;clearCartButton&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;clearCartButton&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;shoppingCart{ShoppingCart.java[ShoppingCart~start~QStage;@clearCartButton!2685!2734!2692!2706!QButton;!0!false" name="emptyCartButton" references="true" stamp="1544921161952" version="1.0"/>
+</session>

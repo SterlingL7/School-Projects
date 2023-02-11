@@ -1,0 +1,4 @@
+Ld   FFF #01 FFF
+Add  FFE #03 FFE
+Sub  FFD #04 FFD
+Str  FFC #02 FFC

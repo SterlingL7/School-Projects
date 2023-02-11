@@ -1,0 +1,259 @@
+
+**** 04/17/20 19:19:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-lab5"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 5-PSpiceFiles\SCHEMATIC1\lab5.sim ] 
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "lab5.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\SPB_DATA\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 100us 0 100n 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source LAB 5
+R_R1         N00292 N00305  200 TC=0,0 
+R_R2         N00545 N00305  300 TC=0,0 
+R_R3         0 N00292  100 TC=0,0 
+R_R4         0 N00461  500 TC=0,0 
+R_R5         N001111 N00283  240 TC=0,0 
+R_R6         N00305 N00329  150 TC=0,0 
+R_R7         N00452 0  5k TC=0,0 
+R_R8         N00333 0  1.2k TC=0,0 
+C_C1         N001111 N00292  .1u  TC=0,0 
+C_C2         N00329 N00333  .1u  TC=0,0 
+C_C3         0 N00452  .1u  TC=0,0 
+C_C4         0 N00461  .1u  TC=0,0 
+V_V1         N00283 0  AC 0
++SIN 0 10m 50k 0 0 0
+X_M1         N00545 N00292 N00461 2N7000/FAI
+X_M2         N00329 N00545 N00452 2N7000/FAI
+V_V2         N00305 0 15
+V_V3         N02541 0 15
+R_R15         0 N03557  500 TC=0,0 
+R_R10         N02541 N02655  150 TC=0,0 
+X_M4         N02651 N02697 N03557 2N7000/FAI
+R_R9         N02651 N02541  300 TC=0,0 
+R_R11         N02697 N02541  200 TC=0,0 
+X_M3         N02655 N02651 N02769 2N7000/FAI
+R_R14         0 N02697  100 TC=0,0 
+R_R13         N02769 0  5k TC=0,0 
+
+**** RESUMING lab5.cir ****
+.END
+
+**** 04/17/20 19:19:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-lab5"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 5-PSpiceFiles\SCHEMATIC1\lab5.sim ] 
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_M1.DDS        X_M1.DBODY      X_M1.DGD        X_M2.DDS        
+          IS   10.000000E-15  140.000000E-15   10.000000E-15   10.000000E-15 
+          BV   60.0864                                         60.0864       
+          RS                     .04                                         
+          TT                  100.000000E-09                                 
+         CJO   23.000000E-12                   85.000000E-12   23.000000E-12 
+          VJ     .8                              .12             .8          
+           M     .36                             .53             .36         
+
+
+               X_M2.DBODY      X_M2.DGD        X_M4.DDS        X_M4.DBODY      
+          IS  140.000000E-15   10.000000E-15   10.000000E-15  140.000000E-15 
+          BV                                   60.0864                       
+          RS     .04                                             .04         
+          TT  100.000000E-09                                  100.000000E-09 
+         CJO                   85.000000E-12   23.000000E-12                 
+          VJ                     .12             .8                          
+           M                     .53             .36                         
+
+
+               X_M4.DGD        X_M3.DDS        X_M3.DBODY      X_M3.DGD        
+          IS   10.000000E-15   10.000000E-15  140.000000E-15   10.000000E-15 
+          BV                   60.0864                                       
+          RS                                     .04                         
+          TT                                  100.000000E-09                 
+         CJO   85.000000E-12   23.000000E-12                   85.000000E-12 
+          VJ     .12             .8                              .12         
+           M     .53             .36                             .53         
+
+
+**** 04/17/20 19:19:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-lab5"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 5-PSpiceFiles\SCHEMATIC1\lab5.sim ] 
+
+
+ ****     MOSFET MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_M1.DMOS       X_M1.INTER      X_M2.DMOS       X_M2.INTER      
+               NMOS            NMOS            NMOS            NMOS            
+       LEVEL    3               1               3               1            
+           L  100.000000E-06  100.000000E-06  100.000000E-06  100.000000E-06 
+           W  100.000000E-06  100.000000E-06  100.000000E-06  100.000000E-06 
+         VTO    2.09328         0               2.09328         0            
+          KP     .35           10                .35           10            
+       GAMMA    0               0               0               0            
+         PHI     .6              .6              .6              .6          
+      LAMBDA    0               0               0               0            
+          IS   10.000000E-15   10.000000E-15   10.000000E-15   10.000000E-15 
+          JS    0               0               0               0            
+          PB     .8              .8              .8              .8          
+        PBSW     .8              .8              .8              .8          
+          CJ    0               0               0               0            
+        CJSW    0               0               0               0            
+        CGSO    0               0               0               0            
+        CGDO    0               0               0               0            
+        CGBO    0               0               0               0            
+         TOX  100.000000E-09    0             100.000000E-09    0            
+          XJ    0               0               0               0            
+       UCRIT   10.000000E+03   10.000000E+03   10.000000E+03   10.000000E+03 
+        VMAX  220.000000E+03                  220.000000E+03                 
+       THETA     .086                            .086                        
+      DIOMOD    1               1               1               1            
+         VFB    0               0               0               0            
+        LETA    0               0               0               0            
+        WETA    0               0               0               0            
+          U0    0               0               0               0            
+        TEMP    0               0               0               0            
+         VDD    5               5               5               5            
+       XPART    0               0               0               0            
+
+
+               X_M4.DMOS       X_M4.INTER      X_M3.DMOS       X_M3.INTER      
+               NMOS            NMOS            NMOS            NMOS            
+       LEVEL    3               1               3               1            
+           L  100.000000E-06  100.000000E-06  100.000000E-06  100.000000E-06 
+           W  100.000000E-06  100.000000E-06  100.000000E-06  100.000000E-06 
+         VTO    2.09328         0               2.09328         0            
+          KP     .35           10                .35           10            
+       GAMMA    0               0               0               0            
+         PHI     .6              .6              .6              .6          
+      LAMBDA    0               0               0               0            
+          IS   10.000000E-15   10.000000E-15   10.000000E-15   10.000000E-15 
+          JS    0               0               0               0            
+          PB     .8              .8              .8              .8          
+        PBSW     .8              .8              .8              .8          
+          CJ    0               0               0               0            
+        CJSW    0               0               0               0            
+        CGSO    0               0               0               0            
+        CGDO    0               0               0               0            
+        CGBO    0               0               0               0            
+         TOX  100.000000E-09    0             100.000000E-09    0            
+          XJ    0               0               0               0            
+       UCRIT   10.000000E+03   10.000000E+03   10.000000E+03   10.000000E+03 
+        VMAX  220.000000E+03                  220.000000E+03                 
+       THETA     .086                            .086                        
+      DIOMOD    1               1               1               1            
+         VFB    0               0               0               0            
+        LETA    0               0               0               0            
+        WETA    0               0               0               0            
+          U0    0               0               0               0            
+        TEMP    0               0               0               0            
+         VDD    5               5               5               5            
+       XPART    0               0               0               0            
+
+
+**** 04/17/20 19:19:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-lab5"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 5-PSpiceFiles\SCHEMATIC1\lab5.sim ] 
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(N00283)    0.0000 (N00292)    5.0001 (N00305)   15.0000 (N00329)   14.6650     
+
+(N00333)    0.0000 (N00452)   11.1560 (N00461)    2.7246 (N00545)   13.3650     
+
+(N02541)   15.0000 (N02651)   13.3650 (N02655)   14.6650 (N02697)    5.0001     
+
+(N02769)   11.1560 (N03557)    2.7246 (X_M1.1)    5.0001 (X_M1.2)   13.3610     
+
+(X_M1.3)    2.7247 (X_M1.4)   13.3630 (X_M1.5)    2.7246 (X_M1.6)    5.0001     
+
+(X_M1.7)   13.3630 (X_M1.8)   21.7270 (X_M1.9)  -11.7270 (X_M2.1)   13.3650     
+
+(X_M2.2)   14.6640 (X_M2.3)   11.1570 (X_M2.4)   14.6650 (X_M2.5)   11.1560     
+
+(X_M2.6)   13.3650 (X_M2.7)   14.6650 (X_M2.8)   15.9640 (X_M2.9)   10.7660     
+
+(X_M3.1)   13.3650 (X_M3.2)   14.6640 (X_M3.3)   11.1570 (X_M3.4)   14.6650     
+
+(X_M3.5)   11.1560 (X_M3.6)   13.3650 (X_M3.7)   14.6650 (X_M3.8)   15.9640     
+
+(X_M3.9)   10.7660 (X_M4.1)    5.0001 (X_M4.2)   13.3610 (X_M4.3)    2.7247     
+
+(X_M4.4)   13.3630 (X_M4.5)    2.7246 (X_M4.6)    5.0001 (X_M4.7)   13.3630     
+
+(X_M4.8)   21.7270 (X_M4.9)  -11.7270 (N001111)    0.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         0.000E+00
+    V_V2        -5.768E-02
+    V_V3        -5.768E-02
+
+    TOTAL POWER DISSIPATION   1.73E+00  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 04/17/20 19:19:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-lab5"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 5-PSpiceFiles\SCHEMATIC1\lab5.sim ] 
+
+
+ ****     JOB STATISTICS SUMMARY
+
+
+******************************************************************************
+
+
+
+  License check-out time            =        5.23
+  Total job time (using Solver 1)   =         .20
+

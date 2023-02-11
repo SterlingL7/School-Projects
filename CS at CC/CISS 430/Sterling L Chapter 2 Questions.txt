@@ -1,0 +1,73 @@
+/*Sterling L
+CISS 430
+Chapter 2, week 1
+*/
+
+/*	SQL QUERY CH2 part O	*/
+SELECT CUSTOMER.LastName, CUSTOMER.FirstName, Phone
+FROM CUSTOMER JOIN INVOICE
+	ON	CUSTOMER.CustomerID=INVOICE.CustomerNumber
+WHERE INVOICE.TotalAmount > 100.00
+ORDER BY CUSTOMER.LastName, CUSTOMER.FirstName;
+
+
+
+/*	SQL QUERY CH2 part P	*/
+SELECT LastName, FirstName, Phone
+FROM CUSTOMER
+	WHERE CustomerID IN
+		(SELECT CustomerNumber
+		FROM INVOICE
+		WHERE InvoiceNumber IN
+			(SELECT InvoiceNumber
+			FROM INVOICE_ITEM
+			WHERE Item = 'Dress Shirt'))
+ORDER BY	CUSTOMER.LastName, CUSTOMER.FirstName DESC;
+
+
+
+/*	SQL QUERY CH2 part Q	*/
+SELECT DISTINCT LastName, FirstName, Phone, Item
+FROM CUSTOMER, INVOICE, INVOICE_ITEM
+	WHERE Item = 'Dress Shirt'
+		AND INVOICE.InvoiceNumber = INVOICE_ITEM.InvoiceNumber
+		AND CustomerID=CustomerNumber
+ORDER BY	CUSTOMER.LastName, CUSTOMER.FirstName DESC;
+
+
+
+/*	SQL QUERY CH2 part R	*/
+SELECT LastName, FirstName, Phone
+FROM CUSTOMER JOIN INVOICE
+	ON	CUSTOMER.CustomerID=INVOICE.CustomerNumber
+	JOIN INVOICE_ITEM
+	ON INVOICE.InvoiceNumber = INVOICE_ITEM.InvoiceNumber
+	WHERE Item = 'Dress Shirt'
+ORDER BY	CUSTOMER.LastName, CUSTOMER.FirstName DESC;
+
+
+
+/*	SQL QUERY CH2 part S	*/
+SELECT DISTINCT LastName, FirstName, Phone
+FROM CUSTOMER JOIN INVOICE
+	ON CUSTOMER.CustomerID=INVOICE.CustomerNumber
+	WHERE InvoiceNumber IN
+			(SELECT InvoiceNumber
+			FROM INVOICE_ITEM
+			WHERE Item = 'Dress Shirt')
+ORDER BY	CUSTOMER.LastName, CUSTOMER.FirstName DESC;
+
+
+
+/*	SQL QUERY CH2 part T	*/
+SELECT LastName, FirstName, Phone, TotalAmount
+FROM CUSTOMER JOIN INVOICE
+	ON	CUSTOMER.CustomerID=INVOICE.CustomerNumber
+	JOIN INVOICE_ITEM
+	ON INVOICE.InvoiceNumber = INVOICE_ITEM.InvoiceNumber
+	WHERE Item = 'Dress Shirt'
+UNION
+SELECT Lastname, FirstName, Phone, TotalAmount
+FROM CUSTOMER JOIN INVOICE
+ON CustomerID=CustomerNumber
+ORDER BY	INVOICE.TotalAmount, CUSTOMER.LastName, CUSTOMER.FirstName DESC;

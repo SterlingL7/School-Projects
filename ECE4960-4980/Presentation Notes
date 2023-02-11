@@ -1,0 +1,82 @@
+Health and Safety
+
+Weatherproofed since fixed outdoors
+
+research methods and choose by jan 10
+
+order materials by march 1
+
+ensure during integration that we can still apply the weatherproofing
+
+finish weatherproofing by march 31
+
+method: shower assemblies and connections with water for 20 sec each to simulate heavy rain
+
+success if maintain operation during and all parts still operable after
+
+
+Sustainability
+
+Purely Solar powered using battery storage
+
+research battery and solar panel options and acquire by march 1
+
+3 days to full charge(4+ hours) in good weather(full sun, partly cloudy) estimated as 24 hrs of sunlight
+
+testing march 8-20 various conditions
+
+measuring days from full discharge to full charge
+
+measure charge from one day of good weather
+
+success if 3 day full charge or ~33% per day
+
+
+Usability
+
+have functional smart phone app control by april 30
+
+easy to use and intuitive
+
+App should control power to ligts, audio feedback mode, ultrasound circuit
+
+find test customers by april 23 and conduct tests through april 30
+
+measure time and amount of assistance required
+
+success if 80% of test customers can fully operate app within 1 min of introduction
+
+
+REQUIREMENTS
+
+CONTROL Requirements
+
+power controls color changing
+
+Bluetooth max range 20ft
+
+at least 5 colors selectable from app, add color changing mode controls
+
+
+Power Supply Rquirements
+
+Provide separate output to LED strip and Arudino Controller
+
+LED set for 10VDC 0-6Amp
+
+MC set for 7.1VDC 0-1Amp
+
+Max Power 70.2Watts
+
+Kelvin connection 4-wire 2 for power, 2 for Volt sensing. allows for adjusting to wire resistance
+
+
+Audio Feedback Pulsing
+
+Volume Threshold 60dB 
+
+frequency range 0-10kHz
+
+Max delay 100ms
+
+Risk management Transition

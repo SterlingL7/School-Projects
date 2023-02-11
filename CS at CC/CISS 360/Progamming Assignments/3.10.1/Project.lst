@@ -1,0 +1,67 @@
+Microsoft (R) Macro Assembler Version 14.12.25834.0	    03/18/18 13:00:19
+AddTwo.asm						     Page 1 - 1
+
+
+				; AddTwo.asm modified to evaluate A=(A+B)-(C+D)
+				; 
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  B8 00000005			mov	eax,5				
+ 00000005  BB 00000006			mov ebx,6				
+ 0000000A  B9 00000003			mov	ecx,3				
+ 0000000F  BA 00000004			mov edx,4
+ 00000014  03 C3			add eax,ebx
+ 00000016  03 CA			add ecx,edx
+ 00000018  2B C1			sub eax,ecx
+
+					invoke ExitProcess,0
+ 0000001A  6A 00	   *	    push   +000000000h
+ 0000001C  E8 00000000 E   *	    call   ExitProcess
+ 00000021			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.12.25834.0	    03/18/18 13:00:19
+AddTwo.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000021 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000021 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+
+	   0 Warnings
+	   0 Errors

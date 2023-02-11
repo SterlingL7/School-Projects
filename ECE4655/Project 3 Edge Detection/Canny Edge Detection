@@ -1,0 +1,254 @@
+%Canny Edge detector in Matlab
+
+%img1 = imread('C:\Users\PhotonUser\Desktop\Fig1001.tif');
+img1 = imread('C:\Users\PhotonUser\Desktop\Fig1016.tif');
+%img1 = imread('C:\Users\PhotonUser\Desktop\Fig1050.tif');
+
+mn = size(img1);
+
+imshow(img1);
+z = waitforbuttonpress;
+
+%hardcoded sobel filter kernels
+sobel_x = [-1 0 1; -2 0 2; -1 0 1];
+sobel_y = [-1 -2 -1; 0 0 0; 1 2 1];
+
+%variables for kernel values. For maximum: kSize = 6*sigma per the book 
+%kSize should be set to odd values only in order to have a single center pixel
+kSize = 11;		%kernel size. kernel will be kSize x kSize matrix
+sigma = kSize/6;
+
+%0 pad image 
+img1 = padarray(img1, [(kSize-1)/2 (kSize-1)/2],'replicate');
+
+%get size input images
+MN = size(img1);
+imSize = MN(1) * MN(2);
+
+%x and y gradient output matrix
+outimg_x = zeros(MN(1),MN(2)); % Fx
+outimg_y = zeros(MN(1),MN(2)); % Fy
+
+mn = size(outimg_x);
+
+%create gaussian kernel
+%copied from the previous project
+[u v] = meshgrid(-(kSize - 1)/2: (kSize - 1)/2, -(kSize - 1)/2: (kSize - 1)/2);
+u = double(u);
+v = double(v);
+gkernel = exp(-(u.^2 + v.^2)/(2*sigma^2));
+gkernel = gkernel / sum(gkernel(:));
+
+%Convolution with gradient kernels to create x-gradient and y-gradient of gaussian kernels
+gpkernel = padarray(gkernel, [1 1]);	%zero pad gaussian for gradent convolution
+dxgaussian = zeros(kSize, kSize);
+dygaussian = zeros(kSize, kSize);
+
+i = 2;
+while i < kSize+2
+	j = 2;
+	while j < kSize+2
+		kernel = (gpkernel(i-1:i+1, j-1:j+1));
+		kernel = double(kernel); %typecast to double
+		dxkernel = kernel.*sobel_x;
+		dykernel = kernel.*sobel_y;
+		dxgaussian(i-1,j-1) = sum(dxkernel(:));
+		dygaussian(i-1,j-1) = sum(dykernel(:));
+		j = j+1;
+	end
+	i = i+1;
+end
+
+%Loop to convolve gradients of gaussian kernel and input image
+
+i = 1;
+j = 1;
+
+while i <= (MN(1) - kSize)
+	kernel = (img1(i: i+kSize-1, j: j+kSize-1));
+	kernel = double(kernel);
+	xkernel = dxgaussian.*kernel;
+	ykernel = dygaussian.*kernel;
+	
+	outimg_x(i + (kSize - 1)/2, j + (kSize - 1)/2) = sum(xkernel(:));
+	outimg_y(i + (kSize - 1)/2, j + (kSize - 1)/2) = sum(ykernel(:));
+	i = i + 1;
+	
+	if i > (MN(1) - kSize)
+		i = 1;
+		if j < (MN(2) - kSize)
+			j = j + 1;
+		else
+			break;
+		end
+	end
+end
+
+%loop to remove padding
+for x = 1:kSize
+	outimg_x(1,:) = [];
+	outimg_x(mn(1) - 1,:) = [];
+	outimg_x(:,1) = [];
+	outimg_x(:,mn(2) - 1) = [];
+	
+	outimg_y(1,:) = [];
+	outimg_y(mn(1) - 1,:) = [];
+	outimg_y(:,1) = [];
+	outimg_y(:,mn(2) - 1) = [];
+
+	mn = size(outimg_x);
+end
+
+% End of Filtering
+
+imshow(uint8(outimg_x));
+z = waitforbuttonpress;
+imshow(uint8(outimg_y));
+z = waitforbuttonpress;
+
+% Gradient Magnitude 
+F = sqrt((outimg_x).^2 + (outimg_y).^2);
+
+% Gradient direction in degrees
+D = atan2(outimg_y, outimg_x) * 180/pi;
+
+% change output from range [-180 180] to [0 180]
+%cs = find(D<0);
+%D(cs) = D(cs) + 180;
+
+
+imshow(uint8(F));
+z = waitforbuttonpress;
+imshow(uint8(D));
+z = waitforbuttonpress;
+
+% Non-Max Suppression
+I = zeros(mn(1),mn(2)); %	thinned edge image
+
+% Make 1 pixel 0 pad to avoid overflow
+F = padarray(F, [1 1]);
+
+% loop through D and F setting I to zero if not local max on D
+for i = 1:mn(1)
+	for j = 1:mn(2)
+		if (0 <= D(i,j) < 22.5) || (157.5 <= D(i,j) <= 180)
+			if (F(i+1,j+1) <= F(i+1,j)) || (F(i+1,j+1) <= F(i+1, j+2))
+				I(i,j) = 0;
+			else
+				I(i,j) = F(i+1,j+1);
+			end
+		elseif 22.5 <= D(i,j) < 67.5
+			if (F(i+1,j+1) <= F(i,j)) || (F(i+1,j+1) <= F(i+2, j+2))
+				I(i,j) = 0;
+			else
+				I(i,j) = F(i+1,j+1);
+			end
+		elseif 67.5 <= D(i,j) < 112.5
+			if (F(i+1,j+1) <= F(i+2,j+1)) || (F(i+1,j+1) <= F(i, j+1))
+				I(i,j) = 0;
+			else
+				I(i,j) = F(i+1,j+1);
+			end
+		elseif 112.5 <= D(i,j) < 157.5
+			if (F(i+1,j+1) <= F(i,j+2)) || (F(i+1,j+1) <= F(i+2, j))
+				I(i,j) = 0;
+			else
+				I(i,j) = F(i+1,j+1);
+			end
+		end
+	end
+end
+
+imshow(uint8(I));
+z = waitforbuttonpress;
+
+% End of Non-Max Suppression
+
+% Hysteresis Thresholding
+
+% Set Thresholds. Low = median of non-zero values, high = 2x low
+% textbook states 2:1 -> 3:1 ratio H:L is ideal
+T_L = median(I(find(I>0)))
+T_H = 3 * T_L
+
+% Separate images with strong and weak pixels
+strong = zeros(mn(1),mn(2));
+weak = zeros(mn(1),mn(2));
+
+% get the indices of pixel that are above each threshold
+strong_i = find(I>T_H);
+weak_i = find(I>T_L);
+
+% set to white for strong and grey for weak
+strong_val = 255;
+weak_val = 128;
+strong(strong_i) = strong_val;
+weak(weak_i) = weak_val;
+
+% set I to the double threshold values
+I = uint8(strong + weak);
+
+imshow(uint8(I));
+z = waitforbuttonpress;
+
+% zero pad for 3x3 checking
+I = padarray(I, [1 1]);
+
+% final output image
+outimg1 = zeros(mn(1),mn(2));
+outimg1 = uint8(outimg1);
+
+%track if visited pixel
+visited = zeros(mn(1), mn(2));
+
+xyz = 0;
+% Loop to detect and fill gaps
+for i = 2:mn(1)
+	for j = 2:mn(2)
+	
+		%if visited(i,j) == 0
+			visited(i,j) = 1;
+			%xyz = xyz + 1;
+			
+			if I(i,j) == strong_val
+				I(i,j) == strong_val;
+				%xyz = xyz + 1;
+			
+			elseif I(i,j) == weak_val
+				%xyz = xyz + 1;
+				if I(i-1,j-1) == strong_val
+					I(i,j) = strong_val;
+					
+				elseif I(i,j-1) == strong_val
+					I(i,j) = strong_val;
+				
+				elseif I(i+1,j-1) == strong_val
+					I(i,j) = strong_val;
+				
+				elseif I(i-1,j) == strong_val
+					I(i,j) = strong_val;
+				
+				elseif I(i+1,j) == strong_val
+					I(i,j) = strong_val;
+				
+				elseif I(i-1,j+1) == strong_val
+					I(i,j) = strong_val;
+				
+				elseif I(i,j+1) == strong_val
+					I(i,j) = strong_val;
+				
+				elseif I(i+1,j+1) == strong_val
+					I(i,j) = strong_val;
+				
+				else
+					I(i,j) = 0;
+					
+				end
+
+			end
+		%end
+	end
+end
+
+imshow(uint8(I))
+

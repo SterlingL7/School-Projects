@@ -1,0 +1,61 @@
+%read in image files
+img1 = imread('C:\Users\PhotonUser\Desktop\Fig0335.tif');
+
+%variables for kernel values. For maximum: kSize = 6*sigma per the book 
+kSize = 21;
+sigma = kSize/6;
+
+%0 pad image for edge filtering
+img1 = padarray(img1, [kSize kSize]);
+
+%get size input images
+MN = size(img1);
+imSize = MN(1) * MN(2);
+
+%output matrix
+outimg1 = zeros(MN(1),MN(2));
+
+mn = size(outimg1);
+
+%create gaussian kernel
+[u v] = meshgrid(-(kSize - 1)/2: (kSize - 1)/2, -(kSize - 1)/2: (kSize - 1)/2);
+u = double(u);
+v = double(v);
+gkernel = exp(-(u.^2 + v.^2)/(2*sigma^2));
+gkernel = gkernel / sum(gkernel(:));
+
+i = 1;
+j = 1;
+%Loop to convolve kernel and input image
+while i <= (MN(1) - kSize)
+	kernel = (img1(i: i+kSize-1, j: j+kSize-1));
+	kernel = double(kernel);
+	fkernel = gkernel.*kernel;
+	
+	outimg1(i + (kSize - 1)/2, j + (kSize - 1)/2) = sum(fkernel(:));
+	i = i + 1;
+	
+	if i > (MN(1) - kSize)
+		i = 1;
+		if j < (MN(2) - kSize)
+			j = j + 1;
+		else
+			break;
+		end
+	end
+end
+
+%loop to remove 0 padding
+for x = 1:kSize
+	outimg1(1,:) = [];
+	outimg1(mn(1) - 1,:) = [];
+	outimg1(:,1) = [];
+	outimg1(:,mn(2) - 1) = [];
+	mn = size(outimg1);
+end
+
+%convert back to unsigned int for displaying
+outimg1 = uint8(outimg1);
+
+%display the final image
+imshow(outimg1)

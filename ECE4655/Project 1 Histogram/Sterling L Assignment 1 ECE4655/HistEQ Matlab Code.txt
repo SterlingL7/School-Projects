@@ -1,0 +1,71 @@
+%this code takes in a file and does a basic histogram equalization.
+
+%import test images
+
+exIm1 = imread('C:\Users\PhotonUser\Desktop\DIP3E_Original_Images_CH03\Fig0308(a)(fractured_spine).tif');
+exIm2 = imread('C:\Users\PhotonUser\Desktop\DIP3E_Original_Images_CH03\Fig0309(a)(washed_out_aerial_image).tif');
+exIm3 = imread('C:\Users\PhotonUser\Desktop\DIP3E_Original_Images_CH03\Fig0316(1)(top_left).tif');
+exIm4 = imread('C:\Users\PhotonUser\Desktop\DIP3E_Original_Images_CH03\Fig0316(2)(2nd_from_top).tif');
+exIm5 = imread('C:\Users\PhotonUser\Desktop\DIP3E_Original_Images_CH03\Fig0316(3)(third_from_top).tif');
+exIm6 = imread('C:\Users\PhotonUser\Desktop\DIP3E_Original_Images_CH03\Fig0316(4)(bottom_left).tif');
+
+%make size vector
+
+imSize3 = size(exIm2);
+
+%initialize value histogram and cumulative histogram
+
+im_Histogram = zeros(256,1);
+cHist = zeros(256,1);
+
+%fill value histogram from an example image
+for r = 1:(imSize3(1)*imSize3(2))
+im_Histogram(exIm2(r) + 1) = im_Histogram(exIm2(r) + 1) + 1;
+end;
+
+%fill the cumulative histogram from the value one
+
+for q = 1:256
+if q == 1
+cHist(q) = im_Histogram(q);
+else
+cHist(q) = cHist(q-1) + im_Histogram(q);
+end;
+end;
+
+%create probability function from cumulative histogram
+
+PDF = zeros(256,1)
+PDF = cHist/(imSize3(1)*imSize3(2));
+
+normHist = zeros(256,1);
+
+%fill normalized histogram from Probability function
+
+for k = 1:256
+normHist(k) = round(255*PDF(k));
+end;
+
+%convert back to unsigned int values
+
+normHist = uint8(normHist);
+
+%create and fill new image using the normalized histogram
+
+normImg = zeros(imSize3(1), imSize3(2));
+
+for u = 1:imSize3(1)
+for v = 1:imSize3(2)
+normImg(u,v) = normHist(exIm2(u,v)+1);
+end;
+end;
+
+normImg = uint8(normImg);
+
+figure(2),
+imshow(normImg)
+
+figure(1),
+subplot(3,1,1), bar(im_Histogram)
+subplot(3,1,2), bar(cHist)
+subplot(3,1,3), bar(normHist)

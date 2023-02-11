@@ -1,0 +1,172 @@
+
+**** 05/07/20 17:55:15 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab6"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 6-PSpiceFiles\SCHEMATIC1\Lab6.sim ] 
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "Lab6.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\SPB_DATA\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 500us 400us 1ns 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source LAB 6
+R_R1         N00230 N00306  1k TC=0,0 
+R_R2         N00306 N00348  100k TC=0,0 
+C_C1         N00306 N00348  100p  TC=0,0 
+V_V2         N00224 0 15Vdc
+V_V3         0 N00253 15Vdc
+X_U1         0 N00306 N00224 N00253 N00348 LM741
+V_V4         N00230 0  
++PULSE 100m -100m 0 5us 5us 0 10us
+
+**** RESUMING Lab6.cir ****
+.END
+
+**** 05/07/20 17:55:15 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab6"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 6-PSpiceFiles\SCHEMATIC1\Lab6.sim ] 
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.x_lm741.dx X_U1.x_lm741.dy 
+          IS  800.000000E-18  800.000000E-18 
+          RS    1               1.000000E-03 
+         CJO                   10.000000E-12 
+
+
+**** 05/07/20 17:55:15 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab6"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 6-PSpiceFiles\SCHEMATIC1\Lab6.sim ] 
+
+
+ ****     BJT MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.x_lm741.qx 
+               NPN             
+       LEVEL    1            
+          IS  800.000000E-18 
+          BF   93.75         
+          NF    1            
+          BR    1            
+          NR    1            
+         ISS    0            
+          RE    0            
+          RC    0            
+         CJE    0            
+         VJE     .75         
+         CJC    0            
+         VJC     .75         
+         MJC     .33         
+        XCJC    1            
+         CJS    0            
+         VJS     .75         
+          KF    0            
+          AF    1            
+          CN    2.42         
+           D     .87         
+
+
+**** 05/07/20 17:55:15 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab6"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 6-PSpiceFiles\SCHEMATIC1\Lab6.sim ] 
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(N00224)   15.0000 (N00230)     .1000 (N00253)  -15.0000 (N00306) 69.34E-06     
+
+(N00348)   -9.9850 (X_U1.x_lm741.6) 942.5E-06                                   
+
+(X_U1.x_lm741.7)   -9.9900            (X_U1.x_lm741.8)   -9.9900                
+
+(X_U1.x_lm741.9)    0.0000            (X_U1.x_lm741.10)    -.6076               
+
+(X_U1.x_lm741.11)   14.9600           (X_U1.x_lm741.12)   14.9600               
+
+(X_U1.x_lm741.13)    -.5938           (X_U1.x_lm741.14)    -.5938               
+
+(X_U1.x_lm741.53)   14.0000           (X_U1.x_lm741.54)  -14.0000               
+
+(X_U1.x_lm741.90)    -.0999           (X_U1.x_lm741.91)   40.0000               
+
+(X_U1.x_lm741.92)  -40.0000           (X_U1.x_lm741.99)    0.0000           
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V2        -1.667E-03
+    V_V3        -1.667E-03
+    V_V4        -9.993E-05
+    X_U1.x_lm741.vb   9.425E-09
+    X_U1.x_lm741.vc   2.399E-11
+    X_U1.x_lm741.ve   5.932E-12
+    X_U1.x_lm741.vlim  -9.985E-05
+    X_U1.x_lm741.vlp  -4.010E-11
+    X_U1.x_lm741.vln  -3.990E-11
+
+    TOTAL POWER DISSIPATION   5.00E-02  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 05/07/20 17:55:15 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-Lab6"  [ C:\Users\Syzygy\Desktop\School\3410 Labs\Lab 6-PSpiceFiles\SCHEMATIC1\Lab6.sim ] 
+
+
+ ****     JOB STATISTICS SUMMARY
+
+
+******************************************************************************
+
+
+
+  License check-out time            =       71.28
+  Total job time (using Solver 1)   =       14.22
+

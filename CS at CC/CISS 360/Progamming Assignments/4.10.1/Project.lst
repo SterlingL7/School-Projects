@@ -1,0 +1,73 @@
+Microsoft (R) Macro Assembler Version 14.12.25834.0	    03/25/18 23:26:17
+AddTwo.asm						     Page 1 - 1
+
+
+				; Sterling LaBarbera
+				; 4.10.1
+				; this program reverses the order of bytes in an array and puts them in a DWORD
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				ExitProcess proto,dwExitCode:dword
+ 00000000			.data
+ 00000000 12 34 56 78		bigEndian BYTE 12h,34h,56h,78h
+ 00000004 00000000		littleEndian DWORD ?
+
+ 00000000			.code
+ 00000000			main proc
+ 00000000  A0 00000000 R		mov al,bigEndian[0]
+ 00000005  A2 00000007 R		mov BYTE ptr littleEndian+3,al
+ 0000000A  A0 00000001 R		mov al,bigEndian[1]
+ 0000000F  A2 00000006 R		mov BYTE ptr littleEndian+2,al
+ 00000014  A0 00000002 R		mov al,bigEndian[2]
+ 00000019  A2 00000005 R		mov BYTE ptr littleEndian+1,al
+ 0000001E  A0 00000003 R		mov al,bigEndian[3]
+ 00000023  A2 00000004 R		mov BYTE ptr littleEndian,al
+					invoke ExitProcess,0
+ 00000028  6A 00	   *	    push   +000000000h
+ 0000002A  E8 00000000 E   *	    call   ExitProcess
+ 0000002F			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.12.25834.0	    03/25/18 23:26:17
+AddTwo.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000008 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000002F DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000002F Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+bigEndian  . . . . . . . . . . .	Byte	 00000000 _DATA	
+littleEndian . . . . . . . . . .	DWord	 00000004 _DATA	
+
+	   0 Warnings
+	   0 Errors
